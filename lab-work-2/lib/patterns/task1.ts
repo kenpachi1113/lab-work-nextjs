@@ -1,5 +1,5 @@
 // lib/patterns/task1.ts
-
+const MOBILE_APP_DISCOUNT = 0.9;
 // Продукт
 export interface Subscription {
   type: string;
@@ -52,7 +52,7 @@ export class MobileApp implements SubscriptionFactory {
     console.log('Creating via MobileApp (with 10% discount logic)...');
     // Логіка може відрізнятися
     const sub = new WebSite().createSubscription(type);
-    sub.monthlyPrice = sub.monthlyPrice * 0.9; 
+    sub.monthlyPrice = sub.monthlyPrice * MOBILE_APP_DISCOUNT;
     return sub;
   }
 }
