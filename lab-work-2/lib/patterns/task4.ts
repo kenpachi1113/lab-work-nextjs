@@ -16,11 +16,17 @@ export class Virus implements VirusPrototype {
   clone(): Virus {
     // Глибоке клонування дітей
     const clonedChildren = this.children.map(child => child.clone());
+    return VirusCloner.clone(this);
+  }
+}
+export class VirusCloner {
+  static clone(virus: Virus): Virus {
+    const clonedChildren = virus.children.map(child => this.clone(child));
     return new Virus(
-      this.weight,
-      this.age,
-      this.name,
-      this.type,
+      virus.weight,
+      virus.age,
+      virus.name,
+      virus.type,
       clonedChildren
     );
   }
