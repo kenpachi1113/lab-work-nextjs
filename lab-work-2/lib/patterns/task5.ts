@@ -68,20 +68,38 @@ export class EnemyBuilder implements Builder {
     return this.character as Character;
   }
 }
-
+export interface HeroConfig {
+  height: string;
+  build: string;
+  hairColor: string;
+  eyeColor: string;
+  clothes: string;
+  inventory: string[];
+}
 export class Director {
-  constructHero(builder: HeroBuilder): Character {
-    return builder
-      .setHeight('180cm')
-      .setBuild('Athletic')
-      .setHairColor('Blond')
-      .setEyeColor('Blue')
-      .setClothes('Armor')
-      .addItem('Sword')
-      .addItem('Shield')
-      .doGoodDeed('Saved the village')
-      .getResult();
-  }
+constructHero(builder: HeroBuilder, config?: Partial<HeroConfig>): Character {
+  const defaultConfig: HeroConfig = {
+    height: '180cm',
+    build: 'Athletic',
+    hairColor: 'Blond',
+    eyeColor: 'Blue',
+    clothes: 'Armor',
+    inventory: ['Sword', 'Shield']
+  };
+  
+  const finalConfig = { ...defaultConfig, ...config };
+  
+  return builder
+    .setHeight(finalConfig.height)
+    .setBuild(finalConfig.build)
+    .setHairColor(finalConfig.hairColor)
+    .setEyeColor(finalConfig.eyeColor)
+    .setClothes(finalConfig.clothes)
+    .addItem(finalConfig.inventory[0])
+    .addItem(finalConfig.inventory[1])
+    .doGoodDeed('Saved the village')
+    .getResult();
+}
 
   constructEnemy(builder: EnemyBuilder): Character {
     return builder
